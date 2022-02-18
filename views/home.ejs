@@ -1,0 +1,235 @@
+<%- include('includes/head.ejs') %>
+    <div class="container-fluid">
+        <div id="loadingBuffering"></div>
+
+        <div class="row">
+            <div id="marsBanner" class="jumbotron bg-cover">
+                <div class="container py-5">
+                    <h1 class="display-4 font-weight-bold">Mars images browser</h1>
+                    <p class="font-italic mb-2">Browse NASA Mars images and save your preferred ones..</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <nav class="navbar navbar-expand-none navbar-dark bg-dark text-white">
+                <a href="#" class="navbar-brand">
+                    <img id="iconName"
+                        src="https://avatars.dicebear.com/api/initials/:<%=user_first_name%>-<%=user_last_name%>.svg"
+                        alt="...">
+                    <span class="capitalize">&nbsp; Welcome,
+                        <%=user_first_name%>
+                            <%=user_last_name%>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link active">Home</a>
+
+                        <div class="nav-item dropdown vertical-center">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"> Missions </a>
+
+                            <ul class="dropdown-menu bg-dark bg-gradient" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item text-center" href="https://mars.nasa.gov/msl/home/"
+                                        target="_blank">Curiosity</a></li>
+                                <li><a class="dropdown-item text-center"
+                                        href="https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit"
+                                        target="_blank">Spirit</a></li>
+                                <li><a class="dropdown-item text-center" href="https://mars.nasa.gov/mars2020/"
+                                        target="_blank">Preseverance</a></li>
+                                <li><a class="dropdown-item text-center"
+                                        href="https://en.wikipedia.org/wiki/Opportunity_(rover)"
+                                        target="_blank">Opportunity</a></li>
+                            </ul>
+                        </div>
+
+                        <a class="nav-item nav-link" aria-current="page"
+                            href="https://mars.nasa.gov/mars2020/spacecraft/rover/cameras/" target="_blank">Cameras</a>
+
+                        <a class="nav-link nav-item" id="helpBtn">Help</a>
+
+                        <a class="nav-link nav-item" id='aboutBtn'>About</a>
+
+                        <a class="nav-link nav-item">
+                            <form id="homePageForm" method="post" action="/logout">
+                                <button type="submit" class="btn btn-danger" id="logoutBtn" name="logoutBtn">
+                                    LogOut</button>
+                            </form>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 col-md-6 ">
+                <form id="form-nasa-api">
+
+                    <div class="m-2">
+                        <h4 class="alert alert-dark fw-bold"><b>Search for images</b></h4>
+                        <label for="missionInput">Select Mission:</label>
+                        <select class="form-control" id="missionInput">
+                            <option value="" disabled selected>Choose mission</option>
+                        </select>
+                        <div class="text-danger errormessage"></div>
+                    </div>
+
+                    <div class="m-2">
+                        <label for="cameraInput">Select Camera:</label>
+                        <select class="form-control" id="cameraInput">
+                            <option value="" disabled selected>Choose camera</option>
+                        </select>
+                        <div class="text-danger errormessage"></div>
+                    </div>
+
+                    <div class="m-2">
+
+                        <label for="dateInput">Date (YYYY-MM-DD) or Sol:</label>
+                        <input type="text" class="form-control" id="dateInput" placeholder="YYYY-MM-DD or Sol">
+                        <div class="text-danger errormessage"></div>
+
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-secondary" id="searchBtn"> Search</button>
+                            <button type="button" class="btn btn-danger" id="clearBtn"> Clear</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="m-2">
+                    <h4 class="alert alert-dark fw-bold"> <b>Saved images</b></h4>
+                    <button type="button" class="btn btn-secondary " id="slideShowBtn">Start slide show</button>
+                    <button type="button" class="btn btn-secondary" id="editBtn">Edit Mode</button>
+                    <button type="button" class="btn btn-danger togglevisible d-none" style="float: right;"
+                        id="clearAllBtn">Clear all</button>
+
+                    <ol id="savedList">
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--add d-non on html-->
+        <div class="row">
+            <div class="col-3"></div>
+            <div id="imagesCarousel" class="carousel slide col-6 d-none" data-bs-ride="carousel">
+                <h4 class="p-3 mb-2 bg-dark text-white"><b>Slide Show</b></h4>
+                <div class="carousel-inner" id="myCarousel">
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imagesCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imagesCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="col-3"></div>
+        </div>
+
+        <div class="row m-2">
+            <h4 class=" alert alert-dark fw-bold"><b>Search result</b></h4>
+            <h4 class="p-3 mb-2 bg-danger text-white d-none" id="noImagesFound"><b>No images found!</b></h4>
+            <div class="row" id="photosGallery">
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Who we are?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Doron Azulay <br> DoronAz@edu.hac.ac.il
+                        </p>
+                        <p>
+                            Liron Farzam <br> LironFa@edu.hac.ac.il
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--custom modal-->
+        <div class="modal text-center" tabindex="-1" id="errorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorModalText"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--custom modal-->
+        <div class="modal" tabindex="-1" id="deleteAllSavedImageList">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger">Warning</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorModalText">You're about to delete all the photos you saved, are you sure you want to
+                            continue?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger " data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-sm btn-success " data-bs-dismiss="modal"
+                            id="confirmDeleteSavedList">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--custom modal-->
+        <div class="modal" tabindex="-1" id="logoutModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger">Wait</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorModalText">Are you sure you want to log out?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger " data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-sm btn-success " data-bs-dismiss="modal"
+                            id="confirmLogOut">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/end.ejs') %>

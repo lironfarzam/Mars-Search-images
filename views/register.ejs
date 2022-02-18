@@ -1,0 +1,122 @@
+<%- include('includes/head.ejs') %>
+    <div class="container-fluid">
+
+        <h2>
+            <%= error_msg %>
+        </h2>
+        <div id="loadingBuffering" class="d-none"></div>
+        <form id="timeOutForm" type="hidden" action="/register/timeout" method="post"></form>
+        <input type="hidden" id="refreshed" value="no">
+
+        <form id="passwordForm" action="register/adduser" method="post">
+            <div class="row" id="registerForm">
+                <div class="col-md-3 col-lg-4"></div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="../images/nasa-logo.gif" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="text-center"><b>Sign Up</b></h4>
+                            <label for="emailInput">Email address</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="material-icons">local_post_office</span>
+                                        </span>
+                                    </div>
+                                    <input type="email" class="form-control" id="emailInput" name="emailInput"
+                                        placeholder="example@email.com">
+                                </div>
+                                <div class="text-danger errormessage"></div>
+                            </div>
+
+                            <label for="firstNameInput">First name</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="material-icons">person</span>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="firstNameInput" name="firstNameInput"
+                                        placeholder="First name">
+                                </div>
+                                <div class="text-danger errormessage "></div>
+                            </div>
+
+                            <label for="lastNameInput">Last name</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="material-icons">people</span>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="lastNameInput" name="lastNameInput"
+                                        placeholder="Last name">
+                                </div>
+                                <div class="text-danger errormessage "></div>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <a href="/login " class="button btn btn-secondary backBtn ">Back</a>
+                                <button type="button" id="registerFirstPart" class="btn btn-primary">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-4"></div>
+            </div>
+
+            <div class="row d-none" id="passwordDiv">
+                <div class="col-md-3 col-lg-4"></div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card ">
+                        <img src="../images/nasa-logo.gif" class="card-img-top" alt="... ">
+                        <div class="card-body ">
+
+                            <h4 class="text-center"><b>Please enter password</b></h4>
+
+                            <label for="passwordInput">Password</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="material-icons">lock_outline</span>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control" name="passwordInput" id="passwordInput"
+                                        placeholder="Password">
+                                </div>
+                                <div class="text-danger errormessage "></div>
+                            </div>
+
+                            <label for="confirmPasswordInput">Confirm Password</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="material-icons">lock</span>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control" name="confirmPasswordInput"
+                                        id="confirmPasswordInput" placeholder="Confirm Password ">
+                                </div>
+                                <div class="text-danger errormessage "></div>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <a href="/register " class="button btn btn-secondary backBtn ">Back</a>
+                                <button type="submit" class="btn btn-primary ">Finish</button>
+                            </div>
+                            <div class="text-center">Registration closes in: <span id="time"
+                                    class="text-danger">01:00</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-4"></div>
+            </div>
+        </form>
+    </div>
+
+    <%- include('includes/end.ejs') %>

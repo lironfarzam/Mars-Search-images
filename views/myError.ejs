@@ -1,0 +1,33 @@
+<%- include('includes/head.ejs') %>
+    <div class="container-fluid">
+
+        <div class="row m-3">
+            <div class="col-md-3 col-lg-4"></div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="text-center mt-3">
+                        <img src="../images/error-icon.png" class="card-img-top" style="width:40%;" alt="...">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="text-danger">Oops somthing wrong...</h3>
+
+                        <h5 class="card-text">
+                            <%= message %>
+                        </h5>
+
+                        <img src="../images/astronaut-error.gif" class="img-fluid m-3" style="width:50%;" alt="...">
+
+                        <div class="text-center">
+                            <a href="/login" class="btn btn-secondary">Login</a>
+                            <a href="/register" class="btn btn-secondary">Sing up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-lg-4"></div>
+
+        </div>
+    </div>
+    <%- include('includes/end.ejs') %>
