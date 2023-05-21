@@ -1,62 +1,47 @@
-Provide access to NASA's Mars Rover Photos – README
+README - Access NASA's Mars Rover Photos
 
-User part:
+User Part:
 
-A site that allows access to NASA missions by api requests.
-After registering and connecting to the site, the user is given full access to the site's services.
-By choose a mission, camera and date to get a whole collection of photos taken that day on Mars - the Red Star
+Introduction:
+This site provides access to NASA's Mars rover photos through API requests. Upon registration and login, users gain full access to the site's services. Users can choose a mission, camera, and date to retrieve a collection of photos taken on Mars.
 
-Information:
-On the site you can find a wealth of information about the use of the spacecraft and about the rovers launched into space by NASA
-Search queries:
-Step A:  Select a mission.
-Step B:  Select a camera - Only cameras that are suitable for the mission can be selected.
-Step C:  Choose a date on Earth or a solar date (a day on a mission across the planet)
-The system assists in the validation process in order to reduce the search to relevant days for each mission.
-After viewing the photo collection you can save favorite photos in the database for future reuse.
-Edit mode:
-After clicking on edit mode, you can access the saved data in the database and make changes such as deleting a single item or a total mica of all the images and resetting the list.
-Carousel mode:
-The site supports the display of saved images by activating a carousel that works automatically to display images.
- Note that the carousel can only be activated if there are stored images in the system.
-Registration process:
-In order to register for the site, you must provide an email address that does not exist in the username and family name system,
-After clicking the Continue button using AJAX we move on to selecting the password.
-When the user has exactly 60 seconds to select a password to confirm it if it does not meet the deadlines, he is transferred to another page that is reprimanded and he must start the registration again.
-If he succeeds, he is taken to a page that congratulates him on his success and congratulations
-Login process:
-Once the user is registered on the site, he can connect to it by using the email with which he registered and with the password he chose. If there is a problem verifying the username and password, an error note will be displayed to the user.
+Site Information:
+The site offers comprehensive information about NASA's spacecraft usage and the rovers launched into space. Users can search for photos using the following steps:
 
+Step A: Select a mission.
+Step B: Choose a camera - Only cameras suitable for the selected mission are available.
+Step C: Select a date on Earth or a solar date (a day on Mars).
 
-The programmer's part:
-https://api.nasa.gov
-This API is designed to collect image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. This API is maintained by Chris Cerami.
-Each rover has its own set of photos stored in the database, which can be queried separately. There are several possible queries that can be made against the API. Photos are organized by the sol (Martian rotation or day) on which they were taken, counting up from the rover's landing date. A photo taken on Curiosity's 1000th Martian sol exploring Mars, for example, will have a sol attribute of 1000. If instead you prefer to search by the Earth date on which a photo was taken, you can do that, too.
-Along with querying by date, results can also be filtered by the camera with which it was taken and responses will be limited to 25 photos per call. Queries that should return more than 25 photos will be split onto several pages, which can be accessed by adding a 'page' param to the query.
-Each camera has a unique function and perspective, and they are named as follows:
- 
-Our special additions:
+The system assists in validating the search criteria to narrow down relevant days for each mission. Users can save their favorite photos in the database for future use.
 
-•	In each operation a request is sent to the server in order to receive the most up-to-date information in real time.
+Edit Mode:
+By entering edit mode, users can access their saved data in the database. They have the option to delete individual items or clear the entire image list.
 
-•	All passwords on our site are secured by built-in bcrypt directory encryption.
+Carousel Mode:
+The site supports a carousel mode that automatically displays saved images. Please note that the carousel is activated only if there are stored images in the system.
 
-•	The site uses SQLITE as a database to store the users and the eight images.
+Registration Process:
+To register, users must provide a unique email address not already in the system. After entering the email and clicking "Continue," users proceed to select a password. They have 60 seconds to choose and confirm the password. Failure to meet the time limit redirects them to a new page to restart the registration process. Successful registration leads to a congratulatory page.
 
-•	Database access is done by sending SQL queries to our database.
+Login Process:
+Registered users can log in using their email and chosen password. If there is an issue with verifying the credentials, an error message will be displayed.
 
-•	Update the task of choose, and after the user selects a task - the list of cameras is updated accordingly! In a dynamic way.
+Programmer's Part:
 
-•	When we click on Clear All, we chose to exit edit mode, because there is nothing more to edit in the list of images. When we click on Slide Show when Edit mode is running, we will exit Edit mode and switch to Slide Show mode and vice versa.
+API Information:
+The API, maintained by Chris Cerami, allows developers, educators, and citizen scientists to access image data collected by NASA's Curiosity, Opportunity, and Spirit rovers on Mars. Each rover has its own set of photos stored in the database, which can be queried separately.
 
-•	All of our photos and gifs are in the files in the project to avoid a situation where they are trying to get the image and it does not load.
+Querying the API:
+Photos are organized by sol (Martian rotation or day) on which they were taken, starting from the rover's landing date. Alternatively, photos can be searched using the Earth date on which they were taken. Queries can also filter results by the camera used. Each query fetches a maximum of 25 photos per call. If more than 25 photos are expected, the results will be split into multiple pages using a 'page' parameter.
 
-•	Each user's request to the database must be verified by the token assigned to the user in the login in order to avoid a situation of receiving requests off-site.
-•	In addition, the user must be logged in to have full access to the site's capabilities in case he logs out or the session is deleted (accidentally or intentionally) The user will be taken to the login page in order to log in again.
+Special Additions:
 
-•	In the event of an unexpected error such as a server crash or disconnection of the database, an appropriate error message will be displayed
-
-
-
-
-
+Real-time Updates: Requests sent to the server ensure access to the most up-to-date information.
+Password Security: All passwords on the site are securely encrypted using the bcrypt directory.
+Database and Storage: The site utilizes SQLite as the database to store user data and images. Photos and gifs are stored within the project files to ensure seamless access.
+Dynamic Camera List: The list of cameras is updated dynamically based on the user's selected mission.
+Edit Mode and Slide Show: Clicking "Clear All" exits edit mode, and clicking "Slide Show" while edit mode is active switches to slide show mode and vice versa.
+Token-based Authentication: Each user's database request requires verification using their assigned token during login to prevent unauthorized requests.
+Session Management: Users must be logged in to access the site's full capabilities. If logged out or if the session is deleted, users will be redirected to the login page.
+Error Handling: In the event of unexpected errors like server crashes or database disconnections, appropriate error messages will be displayed.
+Note: This README provides an overview of the site, its functionalities, and the underlying API. For detailed technical information, refer to the provided API documentation and source code.
